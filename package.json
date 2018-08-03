@@ -1,26 +1,27 @@
 {
-  "name": "laravel-echo",
-  "version": "1.4.1",
+  "name": "laravel-echo-sc",
+  "version": "1.0.0",
   "description": "Laravel Echo library for beautiful Pusher and Socket.IO integration",
   "main": "dist/echo.js",
   "scripts": {
-    "compile": "./node_modules/.bin/rollup -c",
-    "prepublish": "npm run compile",
+    "compile": "rollup -c",
+    "prepare": "npm run compile",
     "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/laravel/echo"
+    "url": "git+https://github.com/RodionMun/echo.git"
   },
   "keywords": [
     "laravel",
     "pusher",
     "socket.io"
   ],
-  "author": {
-    "name": "Taylor Otwell"
-  },
-  "homepage": "https://github.com/laravel/echo",
+  "author": "Rodion Mun",
+  "contributors": [
+    "Taylor Otwell"
+  ],
+  "homepage": "https://github.com/RodionMun/echo",
   "engines": {
     "node": ">6.0.*"
   },
@@ -32,9 +33,9 @@
     "babel-preset-stage-2": "^6.5.0",
     "jest": "^22.1.0",
     "pusher-js": "^3.2.1",
+    "rollup": "^0.31.0",
     "rollup-plugin-babel": "^2.4.0",
     "rollup-plugin-typescript": "^0.7.5",
-    "rollup": "^0.31.0",
     "ts-jest": "^22.0.0"
   },
   "jest": {
@@ -50,5 +51,15 @@
       "json",
       "node"
     ]
-  }
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
+  "bugs": {
+    "url": "https://github.com/RodionMun/echo/issues"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "license": "ISC"
 }
