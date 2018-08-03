@@ -1,6 +1,6 @@
 {
   "name": "laravel-echo-sc",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Laravel Echo library for beautiful Pusher and Socket.IO integration",
   "main": "dist/echo.js",
   "scripts": {
@@ -53,7 +53,9 @@
     ]
   },
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "sc-stateless-presence": "^1.0.7",
+    "socketcluster-client": "^13.0.1"
   },
   "bugs": {
     "url": "https://github.com/RodionMun/echo/issues"
