@@ -1,11 +1,12 @@
-import { EventFormatter } from './util';
-import { Channel, PresenceChannel } from './channel'
-import { PusherConnector, SocketIoConnector, NullConnector } from './connector';
+import {Channel, PresenceChannel, SocketClusterPrivateChannel} from './channel'
+import {SocketClusterConnector} from './connector';
+
+import axios from 'axios';
 
 /**
  * This class is the primary API for interacting with broadcasting.
  */
-class Echo {
+export class Echo {
 
     /**
      * The broadcasting connector.
@@ -29,38 +30,16 @@ class Echo {
     constructor(options: any) {
         this.options = options;
 
-        if (typeof Vue === 'function' && Vue.http) {
-            this.registerVueRequestInterceptor();
+        if (this.options.broadcaster == 'socketcluster') {
+            this.connector = new SocketClusterConnector(this.options);
+        }
+        else {
+            throw new Error("Other providers are unsupportable");
         }
 
         if (typeof axios === 'function') {
             this.registerAxiosRequestInterceptor();
         }
-
-        if (typeof jQuery === 'function') {
-            this.registerjQueryAjaxSetup();
-        }
-
-        if (this.options.broadcaster == 'pusher') {
-            this.connector = new PusherConnector(this.options);
-        } else if (this.options.broadcaster == 'socket.io') {
-            this.connector = new SocketIoConnector(this.options);
-        } else if (this.options.broadcaster == 'null') {
-            this.connector = new NullConnector(this.options);
-        }
-    }
-
-    /**
-     * Register a Vue HTTP interceptor to add the X-Socket-ID header.
-     */
-    registerVueRequestInterceptor() {
-        Vue.http.interceptors.push((request, next) => {
-            if (this.socketId()) {
-                request.headers.set('X-Socket-ID', this.socketId());
-            }
-
-            next();
-        });
     }
 
     /**
@@ -74,21 +53,6 @@ class Echo {
 
             return config;
         });
-    }
-
-    /**
-     * Register jQuery AjaxSetup to add the X-Socket-ID header.
-     */
-    registerjQueryAjaxSetup() {
-        if (typeof jQuery.ajax != 'undefined') {
-            jQuery.ajaxSetup({
-                beforeSend: (xhr) => {
-                    if (this.socketId()) {
-                        xhr.setRequestHeader('X-Socket-Id', this.socketId());
-                    }
-                }
-            });
-        }
     }
 
     /**
@@ -114,7 +78,7 @@ class Echo {
      * @param  {string} channel
      * @return {object}
      */
-    private(channel: string): Channel {
+    private(channel: string): SocketClusterPrivateChannel {
         return this.connector.privateChannel(channel);
     }
 
@@ -155,5 +119,3 @@ class Echo {
         this.connector.disconnect();
     }
 }
-
-module.exports = Echo;

@@ -1,4 +1,4 @@
-import { Channel, PresenceChannel } from './../channel';
+import {Channel, PresenceChannel} from './../channel';
 
 export abstract class Connector {
 
@@ -56,9 +56,9 @@ export abstract class Connector {
     /**
      * Extract the CSRF token from the page.
      *
-     * @return {string}
+     * @return {string | null}
      */
-    protected csrfToken(): string {
+    protected csrfToken() {
         let selector;
 
         if (typeof window !== 'undefined' && window['Laravel'] && window['Laravel'].csrfToken) {
@@ -83,7 +83,6 @@ export abstract class Connector {
      * Get a channel instance by name.
      *
      * @param  {string}  channel
-     * @return {PusherChannel}
      */
     abstract channel(channel: string): Channel;
 
