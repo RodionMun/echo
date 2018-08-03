@@ -50,6 +50,10 @@ export class SocketClusterConnector extends Connector {
             return this.socket;
         });
 
+        this.socket.on('subscribe', channel => {
+            console.log('%cWS: ' + `Connected to channel: "${channel}" successfully.`, 'color: #6639B6');
+        });
+
         this.socket.on('close', () => {
             console.log('Connection was closed')
         });

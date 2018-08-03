@@ -108,7 +108,7 @@ export class SocketClusterChannel extends Channel {
      * @return {object}
      */
     subscribe(): any {
-        if (this.auth) {
+        if (this.auth && this.socket.authState !== this.socket.AUTHENTICATED) {
             let authData = {
                 url: this.options.location + this.options.authEndpoint,
                 form: {channel_name: this.name},
@@ -146,23 +146,15 @@ export class SocketClusterChannel extends Channel {
 
         let eventsList: string[] = [];
 
-        if(!this.connector.handlers.includes('subscribe')) {
-            this.connector.handlers.push('subscribe');
+        this.watch((data) => {
+            if (this.isDebug() && !eventsList.includes(data.event)) {
+                console.log('%cWS: ' + `Listening to ${data.event} on channel ${this.name}`, 'color: #6639B6');
 
-            this.socket.on('subscribe', (channel) => {
-                console.log('%cWS: ' + `Connected to channel: "${channel}" successfully.`, 'color: #6639B6');
-
-                this.watch((data) => {
-                    if (this.isDebug() && !eventsList.includes(data.event)) {
-                        console.log('%cWS: ' + `Listening to ${data.event} on channel ${this.name}`, 'color: #6639B6');
-
-                        eventsList.push(data.event);
-                    }
-
-                    this.bus.publish(data.event, data.data);
-                });
-            });
-        }
+                eventsList.push(data.event);
+            }
+            console.log(data);
+            this.bus.publish(data.event, data.data);
+        });
     }
 
     /**
