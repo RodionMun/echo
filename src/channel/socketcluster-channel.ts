@@ -2,7 +2,7 @@ import {EventFormatter} from '../util';
 import {Channel} from './channel';
 
 import {EventBus} from "./bus/event-bus";
-import {SocketClusterConnector} from "~/modules/echo/connector";
+import {SocketClusterConnector} from "../connector/";
 
 
 /**
