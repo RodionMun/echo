@@ -1,7 +1,7 @@
 import {Channel, PresenceChannel, SocketClusterPrivateChannel} from './channel'
 import {SocketClusterConnector} from './connector';
 
-import axios from 'axios';
+let axios = require('axios');
 
 /**
  * This class is the primary API for interacting with broadcasting.
