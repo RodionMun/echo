@@ -59,6 +59,12 @@ export class SocketClusterConnector extends Connector {
         });
     }
 
+    onClose(callback) {
+        this.socket.on('close', () => {
+            callback();
+        });
+    }
+
     /**
      * Get socket cluster module from global scope or options.
      *

@@ -45,6 +45,10 @@ export class NullConnector extends Connector {
         return new NullChannel;
     }
 
+    onClose(callback) {
+        return callback;
+    }
+
     /**
      * Get a private channel instance by name.
      *

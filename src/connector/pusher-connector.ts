@@ -82,6 +82,10 @@ export class PusherConnector extends Connector {
         return this.channels['private-' + name];
     }
 
+    onClose(callback) {
+        return callback;
+    }
+
     /**
      * Get a presence channel instance by name.
      *

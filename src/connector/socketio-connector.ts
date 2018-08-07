@@ -133,6 +133,10 @@ export class SocketIoConnector extends Connector {
         });
     }
 
+    onClose(callback) {
+        return callback;
+    }
+
     /**
      * Get the socket ID for the connection.
      *
