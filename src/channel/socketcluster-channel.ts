@@ -163,6 +163,10 @@ export class SocketClusterChannel extends Channel {
      * @return {void}
      */
     unsubscribe(): void {
+        if(this.socket.authState === this.socket.AUTHENTICATED) {
+            this.socket.deauthenticate();
+        }
+
         this.socket.unsubscribe(this.name);
 
         this.bus.unsubscribe(null);
@@ -217,6 +221,6 @@ export class SocketClusterChannel extends Channel {
      * @return {void}
      */
     unwatch(callback?: Function | undefined): void {
-        this.socket.unwatch(callback);
+        this.socket.unwatch(this.name, callback);
     }
 }

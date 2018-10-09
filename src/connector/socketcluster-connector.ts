@@ -162,7 +162,7 @@ export class SocketClusterConnector extends Connector {
 
         channels.forEach(name => {
             if (this.channels[name]) {
-                this.channels[name].unwatch();
+                this.channels[name].unsubscribe();
 
                 delete this.channels[name];
             }
@@ -183,7 +183,7 @@ export class SocketClusterConnector extends Connector {
      *
      * @return void
      */
-    disconnect(): void {
+    async disconnect() {
         console.log('%cWS: Destroying a socketcluster instance', 'color: #6639B6')
         this.socket.destroy();
     }
