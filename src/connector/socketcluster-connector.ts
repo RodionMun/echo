@@ -185,6 +185,6 @@ export class SocketClusterConnector extends Connector {
      */
     disconnect() {
         console.log('%cWS: Destroying a socketcluster instance', 'color: #6639B6')
-        this.socket.destroy();
+        this.socket.disconnect();
     }
 }
