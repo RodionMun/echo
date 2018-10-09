@@ -1,6 +1,6 @@
 {
   "name": "laravel-echo-sc",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Laravel Echo library for beautiful Pusher, Socket.IO and Socketcluster integration",
   "main": "dist/echo.js",
   "scripts": {
