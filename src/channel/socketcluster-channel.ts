@@ -147,13 +147,19 @@ export class SocketClusterChannel extends Channel {
         let eventsList: string[] = [];
 
         this.watch((data) => {
-            if (this.isDebug() && !eventsList.includes(data.event)) {
-                console.log('%cWS: ' + `Listening to ${data.event} on channel ${this.name}`, 'color: #6639B6');
+            let event: string = data.event;
+            let dataObject = data.data;
 
-                eventsList.push(data.event);
+            if (this.isDebug() && !eventsList.includes(event)) {
+                console.log('%cWS: ' + `Listening to ${event} on channel ${this.name}`, 'color: #6639B6');
+
+                eventsList.push(event);
             }
-            console.log(data);
-            this.bus.publish(data.event, data.data);
+            else if(eventsList.includes(event)) {
+                if(this.isDebug()) console.log(`Channel: ${this.name} Event: ${event} Got a new message:`, dataObject);
+
+                this.bus.publish(event, dataObject);
+            }
         });
     }
 
