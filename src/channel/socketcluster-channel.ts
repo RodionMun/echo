@@ -121,6 +121,9 @@ export class SocketClusterChannel extends Channel {
 
             this.options = Object.assign(this.options, {waitForAuth: true});
         }
+        else {
+            console.log('Already authenticated')
+        }
 
         if(!this.connector.handlers.includes('subscribeFail')) {
             this.connector.handlers.push('subscribeFail');
@@ -150,8 +153,8 @@ export class SocketClusterChannel extends Channel {
             let event: string = data.event;
             let dataObject = data.data;
 
-            if (this.isDebug() && !eventsList.includes(event)) {
-                console.log('%cWS: ' + `Listening to ${event} on channel ${this.name}`, 'color: #6639B6');
+            if (!eventsList.includes(event)) {
+                if(this.isDebug()) console.log('%cWS: ' + `Listening to ${event} on channel ${this.name}`, 'color: #6639B6');
 
                 eventsList.push(event);
             }
