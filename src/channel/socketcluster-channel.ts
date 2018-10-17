@@ -153,10 +153,14 @@ export class SocketClusterChannel extends Channel {
             let event: string = data.event;
             let dataObject = data.data;
 
+            if(this.isDebug()) console.log(data, eventsList);
+
             if (!eventsList.includes(event)) {
                 if(this.isDebug()) console.log('%cWS: ' + `Listening to ${event} on channel ${this.name}`, 'color: #6639B6');
 
                 eventsList.push(event);
+
+                this.bus.publish(event, dataObject);
             }
             else if(eventsList.includes(event)) {
                 if(this.isDebug()) console.log(`Channel: ${this.name} Event: ${event} Got a new message:`, dataObject);
