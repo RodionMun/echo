@@ -143,6 +143,26 @@ export class SocketClusterChannel extends Channel {
             }
         }
 
+        if (this.isDebug()) {
+            if(!this.connector.handlers.includes('connectAbort')) {
+                this.connector.handlers.push('connectAbort');
+
+                this.socket.on('connectAbort', (error) => {
+                    console.log(error);
+                });
+            }
+        }
+
+        if (this.isDebug()) {
+            if(!this.connector.handlers.includes('disconnect')) {
+                this.connector.handlers.push('disconnect');
+
+                this.socket.on('disconnect', (error) => {
+                    console.log(error);
+                });
+            }
+        }
+
         this.socket.subscribe(this.name, this.options);
 
         this.bus = new EventBus();

@@ -137,6 +137,14 @@ export class SocketIoConnector extends Connector {
         return callback;
     }
 
+    onConnectAbort(callback) {
+        return callback;
+    }
+
+    onDisconnect(callback) {
+        return callback;
+    }
+
     /**
      * Get the socket ID for the connection.
      *

@@ -86,6 +86,14 @@ export class PusherConnector extends Connector {
         return callback;
     }
 
+    onConnectAbort(callback) {
+        return callback;
+    }
+
+    onDisconnect(callback) {
+        return callback;
+    }
+
     /**
      * Get a presence channel instance by name.
      *

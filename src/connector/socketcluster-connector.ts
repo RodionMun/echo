@@ -56,8 +56,23 @@ export class SocketClusterConnector extends Connector {
     }
 
     onClose(callback) {
-        this.socket.on('close', () => {
-            callback();
+        this.handlers.push('close');
+        this.socket.on('close', (...data) => {
+            callback(data);
+        });
+    }
+
+    onConnectAbort(callback) {
+        this.handlers.push('connectAbort');
+        this.socket.on('connectAbort', (...data) => {
+            callback(data);
+        });
+    }
+
+    onDisconnect(callback) {
+        this.handlers.push('disconnect');
+        this.socket.on('disconnect', (...data) => {
+            callback(data);
         });
     }
 

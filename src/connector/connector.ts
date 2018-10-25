@@ -118,6 +118,8 @@ export abstract class Connector {
     abstract socketId(): string;
 
     abstract onClose(callback: Function);
+    abstract onConnectAbort(callback: Function);
+    abstract onDisconnect(callback: Function);
 
     /**
      * Disconnect from the Echo server.
